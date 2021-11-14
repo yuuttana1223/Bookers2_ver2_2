@@ -1,0 +1,5 @@
+<% if book.favorited_by?(user) %>
+  <%= link_to book.favorites.count, book_favorites_path(book), class: "fas fa-heart text-danger", method: :delete %>
+<% else %>
+  <%= link_to book.favorites.count, book_favorites_path(book), class: "fas fa-heart", method: :post %>
+<% end %>

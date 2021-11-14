@@ -11,6 +11,8 @@ class BooksController < ApplicationController
     @new_book = Book.new
     @book = Book.find(params[:id])
     @user = @book.user
+    @book_comment = BookComment.new
+    @book_comments = @book.book_comments
   end
 
   def create
@@ -46,14 +48,15 @@ class BooksController < ApplicationController
   end
 
   private
-    def book_params
-      params.require(:book).permit(:title, :body)
-    end
 
-    def ensure_correct_book_user
-      @book = Book.find(params[:id])
-      unless current_user.id == @book.user_id
-        redirect_to books_path
-      end
+  def book_params
+    params.require(:book).permit(:title, :body)
+  end
+
+  def ensure_correct_book_user
+    @book = Book.find(params[:id])
+    unless current_user.id == @book.user_id
+      redirect_to books_path
     end
+  end
 end
